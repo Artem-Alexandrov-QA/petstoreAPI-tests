@@ -5,7 +5,6 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
 import static com.alexandrov.helpers.users.CreateUserInPetstore.createUser;
 import static com.alexandrov.helpers.users.PrepareUser.prepareUser;
 import static com.alexandrov.specs.users.UsersSpecs.userRequestSpec;
@@ -14,7 +13,6 @@ import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class UsersTests {
 
