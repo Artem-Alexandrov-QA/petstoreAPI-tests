@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 public class PrepareUser {
     static Faker faker = new Faker();
 
-    @Step("Подготавливаю нового юзера.")
+    @Step("Подготовка нового юзера.")
     public static User prepareUser() {
         return User
                 .builder()
