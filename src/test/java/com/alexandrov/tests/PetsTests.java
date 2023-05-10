@@ -31,7 +31,7 @@ public class PetsTests {
         Pet pet = preparePet();
         Pet newPetInStore = addPet(pet);
 
-        step("Проверка, что в ответе корректные данные. Имя: " + newPetInStore.getName() + " == SomePetName");
+        step("Проверка, что в ответе корректные данные. Имя: " + newPetInStore.getName());
         assertThat(newPetInStore.getName()).isEqualTo(pet.getName());
         step("Проверка, что в ответе корректные данные. URL фото.");
         assertThat(newPetInStore.getPhotoUrls()).isEqualTo(pet.getPhotoUrls());
@@ -49,9 +49,9 @@ public class PetsTests {
 
         Pet petFromPetstore = GetPetFromPetstore.getPetById(String.valueOf(newPetInStore.getId()));
 
-        step("Проверка, что в ответе корректные данные. Имя: " + petFromPetstore.getName() + " == SomePetName");
+        step("Проверка, что в ответе корректные данные. Имя: " + petFromPetstore.getName());
         assertThat(petFromPetstore.getName()).isEqualTo(pet.getName());
-        step("Проверка, что в ответе корректные данные. URL фото." + petFromPetstore.getName() + " == SomePetName");
+        step("Проверка, что в ответе корректные данные. URL фото.");
         assertThat(petFromPetstore.getPhotoUrls()).isEqualTo(pet.getPhotoUrls());
     }
 
@@ -69,7 +69,7 @@ public class PetsTests {
         newPetInStore.setName("NewPetName");
         newPetInStore.setPhotoUrls(new ArrayList<>(List.of("none")));
 
-        step("Отправляю запрос на обновление данных питомца.");
+        step("Запрос на обновление данных питомца.");
         Response response =
                 given()
                         .spec(requestSpec)
@@ -84,7 +84,7 @@ public class PetsTests {
         step("Проверка ответа: " + response.statusCode());
         step("Проверка, что ответ соответствует JSON схеме.");
 
-        step("Проверка, что в ответе корректные данные. Имя: " + response.as(Pet.class).getName() + " == SomePetName");
+        step("Проверка, что в ответе корректные данные. Имя: " + response.as(Pet.class).getName());
         assertThat(response.as(Pet.class).getName()).isEqualTo("NewPetName");
         step("Проверка, что в ответе корректные данные. URL фото.");
         assertThat(response.as(Pet.class).getPhotoUrls()).contains("none");
@@ -115,7 +115,7 @@ public class PetsTests {
         step("Проверка ответа: " + response.statusCode());
         step("Проверка, что ответ соответствует JSON схеме.");
 
-        step("Проверка, что в ответе корректные данные.");
+        step("Проверка, что в ответе корректные данные(code,type,message).");
         assert response.body().path("code").equals(200);
         assert response.body().path("type").equals("unknown");
         assert response.body().path("message").equals(String.valueOf(newPetInStore.getId()));
