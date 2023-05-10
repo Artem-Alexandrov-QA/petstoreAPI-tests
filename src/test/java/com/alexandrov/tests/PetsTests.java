@@ -41,7 +41,7 @@ public class PetsTests {
     @Story("Pets tests")
     @Owner("Artem Alexandrov")
     @Severity(SeverityLevel.NORMAL)
-    @DisplayName("Получение питомца по id")
+    @DisplayName("Получение данных питомца по id")
     @Feature("API test Petstore.swagger.io")
     public void getPetByIdTest() {
         Pet pet = preparePet();
@@ -60,7 +60,7 @@ public class PetsTests {
     @Owner("Artem Alexandrov")
     @Severity(SeverityLevel.NORMAL)
     @Feature("API test Petstore.swagger.io")
-    @DisplayName("Обновление информации о питомце")
+    @DisplayName("Обновление данных о питомце")
     public void updatePetTest() {
         Pet pet = preparePet();
         Pet newPetInStore = addPet(pet);

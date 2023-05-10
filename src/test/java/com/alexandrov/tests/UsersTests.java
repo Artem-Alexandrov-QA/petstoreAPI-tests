@@ -37,12 +37,12 @@ public class UsersTests {
     @Owner("Artem Alexandrov")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("API test Petstore.swagger.io")
-    @DisplayName("Получение пользователя из системы по username")
+    @DisplayName("Получение данных пользователя по username")
     public void getUserByUsernameTest() {
         User user = prepareUser();
         user.setId(createUser(user).getId());
 
-        step("Запрос на получение юзера по username.");
+        step("Запрос на получение данных пользователя по username.");
         User userFromApi =
                 given()
                         .spec(userRequestSpec)
