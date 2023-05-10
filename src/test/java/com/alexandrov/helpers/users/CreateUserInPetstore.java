@@ -11,7 +11,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class CreateUserInPetstore {
 
-    @Step("Запрос на создание юзера. Проверяю, что ответ соответствует JSON схеме.")
+    @Step("Запрос на создание юзера. Проверка, что ответ соответствует JSON схеме.")
     public static User createUser(User user) {
 
         Response response =

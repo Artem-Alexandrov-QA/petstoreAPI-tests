@@ -37,7 +37,7 @@ public class UsersTests {
     @Owner("Artem Alexandrov")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("API test Petstore.swagger.io")
-    @DisplayName("Получение пользователя из системы по его username")
+    @DisplayName("Получение пользователя из системы по username")
     public void getUserByUsernameTest() {
         User user = prepareUser();
         user.setId(createUser(user).getId());
