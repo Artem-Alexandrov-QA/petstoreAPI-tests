@@ -1,4 +1,4 @@
-package com.alexandrov.domain.pets;
+package com.alexandrov.pojo.pets;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

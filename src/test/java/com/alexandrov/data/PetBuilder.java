@@ -1,13 +1,14 @@
-package com.alexandrov.helpers.pets;
+package com.alexandrov.data;
 
-import com.alexandrov.domain.pets.Pet;
+import com.alexandrov.pojo.pets.Pet;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreparePet {
+public class PetBuilder {
+
     static Faker faker = new Faker();
 
     @Step("Подготовка нового питомца.")

@@ -1,4 +1,4 @@
-package com.alexandrov.domain.users;
+package com.alexandrov.pojo.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

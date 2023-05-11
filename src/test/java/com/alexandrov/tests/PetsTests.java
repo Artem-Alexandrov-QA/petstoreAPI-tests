@@ -1,7 +1,7 @@
 package com.alexandrov.tests;
 
-import com.alexandrov.domain.pets.Pet;
-import com.alexandrov.helpers.pets.GetPetFromPetstore;
+import com.alexandrov.pojo.pets.Pet;
+import com.alexandrov.steps.pets.GetPetFromPetstore;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.alexandrov.helpers.pets.AddPetToPetstore.addPet;
-import static com.alexandrov.helpers.pets.PreparePet.preparePet;
-import static com.alexandrov.specs.pets.PetsSpecs.requestSpec;
-import static com.alexandrov.specs.pets.PetsSpecs.responseSpec;
+import static com.alexandrov.data.PetBuilder.preparePet;
+import static com.alexandrov.steps.pets.AddPetToPetstore.addPet;
+import static com.alexandrov.specs.PetsSpecs.requestSpec;
+import static com.alexandrov.specs.PetsSpecs.petsSuccessResponseSpec;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -33,7 +33,6 @@ public class PetsTests {
 
         step("Проверка, что в ответе корректные данные. Имя: " + newPetInStore.getName());
         assertThat(newPetInStore.getName()).isEqualTo(pet.getName());
-        step("Проверка, что в ответе корректные данные. URL фото.");
         assertThat(newPetInStore.getPhotoUrls()).isEqualTo(pet.getPhotoUrls());
     }
 
@@ -51,7 +50,6 @@ public class PetsTests {
 
         step("Проверка, что в ответе корректные данные. Имя: " + petFromPetstore.getName());
         assertThat(petFromPetstore.getName()).isEqualTo(pet.getName());
-        step("Проверка, что в ответе корректные данные. URL фото.");
         assertThat(petFromPetstore.getPhotoUrls()).isEqualTo(pet.getPhotoUrls());
     }
 
@@ -69,7 +67,6 @@ public class PetsTests {
         newPetInStore.setName("NewPetName");
         newPetInStore.setPhotoUrls(new ArrayList<>(List.of("none")));
 
-        step("Запрос на обновление данных питомца.");
         Response response =
                 given()
                         .spec(requestSpec)
@@ -77,17 +74,15 @@ public class PetsTests {
                         .when()
                         .put("pet")
                         .then()
-                        .spec(responseSpec)
+                        .spec(petsSuccessResponseSpec)
                         .body(matchesJsonSchemaInClasspath("schemas/pets/post_pet_petstore_schema.json"))
+                        .statusCode(200)
                         .extract().response();
 
-        step("Проверка ответа: " + response.statusCode());
-        step("Проверка, что ответ соответствует JSON схеме.");
-
-        step("Проверка, что в ответе корректные данные. Имя: " + response.as(Pet.class).getName());
-        assertThat(response.as(Pet.class).getName()).isEqualTo("NewPetName");
-        step("Проверка, что в ответе корректные данные. URL фото.");
-        assertThat(response.as(Pet.class).getPhotoUrls()).contains("none");
+        step("Проверка, что данные питомца изменились", () -> {
+            assertThat(response.as(Pet.class).getName()).isEqualTo("NewPetName");
+            assertThat(response.as(Pet.class).getPhotoUrls()).contains("none");
+        });
     }
 
     @Test
@@ -108,12 +103,9 @@ public class PetsTests {
                         .when()
                         .delete("pet/" + newPetInStore.getId())
                         .then()
-                        .spec(responseSpec)
+                        .spec(petsSuccessResponseSpec)
                         .body(matchesJsonSchemaInClasspath("schemas/pets/delete_pet_petstore_schema.json"))
                         .extract().response();
-
-        step("Проверка ответа: " + response.statusCode());
-        step("Проверка, что ответ соответствует JSON схеме.");
 
         step("Проверка, что в ответе корректные данные(code,type,message).");
         assert response.body().path("code").equals(200);

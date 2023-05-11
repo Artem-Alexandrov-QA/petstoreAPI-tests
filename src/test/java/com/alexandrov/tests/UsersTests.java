@@ -1,14 +1,14 @@
 package com.alexandrov.tests;
 
-import com.alexandrov.domain.users.User;
+import com.alexandrov.pojo.users.User;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.alexandrov.helpers.users.CreateUserInPetstore.createUser;
-import static com.alexandrov.helpers.users.PrepareUser.prepareUser;
-import static com.alexandrov.specs.users.UsersSpecs.userRequestSpec;
-import static com.alexandrov.specs.users.UsersSpecs.userResponseSpec;
+import static com.alexandrov.data.UserBuilder.prepareUser;
+import static com.alexandrov.steps.users.CreateUserInPetstore.createUser;
+import static com.alexandrov.specs.UsersSpecs.userRequestSpec;
+import static com.alexandrov.specs.UsersSpecs.userSuccessResponseSpec;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -47,7 +47,7 @@ public class UsersTests {
                         .when()
                         .get("user/" + user.getUsername())
                         .then()
-                        .spec(userResponseSpec)
+                        .spec(userSuccessResponseSpec)
                         .body(matchesJsonSchemaInClasspath("schemas/users/get_user_by_username_petstore_schema.json"))
                         .extract().response().as(User.class);
 

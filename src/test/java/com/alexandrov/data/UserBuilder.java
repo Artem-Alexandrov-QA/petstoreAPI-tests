@@ -1,10 +1,11 @@
-package com.alexandrov.helpers.users;
+package com.alexandrov.data;
 
-import com.alexandrov.domain.users.User;
+import com.alexandrov.pojo.users.User;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 
-public class PrepareUser {
+public class UserBuilder {
+
     static Faker faker = new Faker();
 
     @Step("Подготовка нового юзера.")
